@@ -1,3 +1,5 @@
+#DO NOT FORGET TO INSTALL : pip install azure-cognitiveservices-speech==1.30.0
+
 from dotenv import load_dotenv
 from datetime import datetime
 import os
