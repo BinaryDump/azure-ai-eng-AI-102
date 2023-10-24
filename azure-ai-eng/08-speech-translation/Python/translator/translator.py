@@ -24,6 +24,7 @@ def main():
         translation_config.add_target_language('fr')
         translation_config.add_target_language('es')
         translation_config.add_target_language('hi')
+        translation_config.add_target_language('en')
         print('Ready to translate from',translation_config.speech_recognition_language)
 
 
@@ -34,7 +35,7 @@ def main():
         # Get user input
         targetLanguage = ''
         while targetLanguage != 'quit':
-            targetLanguage = input('\nEnter a target language\n fr = French\n es = Spanish\n hi = Hindi\n Enter anything else to stop\n').lower()
+            targetLanguage = input('\nEnter a target language\n fr = French\n es = Spanish\n hi = Hindi\n en = English\n Enter anything else to stop\n').lower()
             if targetLanguage in translation_config.target_languages:
                 Translate(targetLanguage)
             else:
@@ -58,11 +59,12 @@ def Translate(targetLanguage):
     
     # Translate speech
     audioFile = 'station.wav'
-    playsound(audioFile)
+    #playsound(audioFile)
     audio_config = speech_sdk.AudioConfig(filename=audioFile)
     translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config)
     print("Getting speech from file...")
     result = translator.recognize_once_async().get()
+    print("Result {}".format(result.no_match_details))
     print('Translating "{}"'.format(result.text))
     translation = result.translations[targetLanguage]
     print(translation)
